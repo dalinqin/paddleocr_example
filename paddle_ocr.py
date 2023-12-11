@@ -42,3 +42,31 @@ with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
     csvwriter = csv.writer(csvfile)
     for row in sorted_rows:
         csvwriter.writerow(row)    
+
+
+
+
+#直接存成pdf
+
+
+
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+# conda install reportlab
+
+width, height = 1270, 1980  
+
+pdfmetrics.registerFont(TTFont('ChineseFont', 'c:\\STSong.ttf'))  
+
+
+c = canvas.Canvas("c:\\output.pdf", pagesize=(width, height))
+
+c.setFont("ChineseFont", 10)
+
+for line in result[0]:
+    x, y, text = line[0][0][0], line[0][0][1], line[1][0]
+    c.drawString(x, height - y, text)  
+
+c.save()
+
