@@ -15,7 +15,7 @@ for item in result[0]:
     coords, (text, confidence) = item
     # 我们用Y坐标的平均值来确定文本可能属于的行
     y_coord = sum([point[1] for point in coords]) / 4
-    # 用一定的阈值来判定是否为同一行，这里假设如果Y坐标差距小于等于10则认为是同一行
+    # 用一定的阈值来判定是否为同一行，这里假设如果Y坐标差距小于等于15则认为是同一行
     threshold = 15
     found_row = False
     for row_y in rows_with_y.keys():
@@ -26,7 +26,7 @@ for item in result[0]:
     if not found_row:
         rows_with_y[y_coord] = [(text, coords[0][0])]
 
-# 现在我们有了按行分组的文本，我们需要按X坐标对每行的文本进行排序
+# 按X坐标对每行的文本进行排序
 sorted_rows = []
 for y in sorted(rows_with_y.keys()):
     # 按X坐标对行内元素进行排序
